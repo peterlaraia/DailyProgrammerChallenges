@@ -1,40 +1,46 @@
 class FibonacciGenerator:
+    sequence = []
+    maxSum = 0
 
-    def __init__(self, base, add):
-        self.base = base
-        self.add = add 
-        self.sequence = []
 
-    def until(self, until, includeInit=False):
-        take = self.base
-        plus = self.add
-        if take < 0 or plus < 0:
-            return []
-        else:
-            self.sequence = [take, plus] if includeInit else []
+    def __init__(self):
+        self.sequence = [1, 1]
+        maxSum = 2
+
+    def until(self, until):
+        take = self.sequence[-2]
+        plus = self.sequence[-1]
         
-        fib = take + plus
+        fib = self.sequence[-1]
         while fib < until:
+            fib = take + plus
             self.sequence.append(fib)
+            self.maxSum += fib
             take = plus
             plus = fib
+
+    def untilMaxSum(self, until):
+        take = self.sequence[-2]
+        plus = self.sequence[-1]
+
+        fib = self.sequence[-1]
+        while self.maxSum < until:
             fib = take + plus
-        return self.sequence
+            self.sequence.append(fib)
+            self.maxSum += fib
+            take = plus
+            plus = fib
 
-    def count(self, steps, includeInit=False):
-        take = self.base
-        plus = self.add
-        if take < 0 or plus < 0:
-            return []
-        else:
-            self.sequence = [take, plus] if includeInit else []
-
+    def count(self, steps):
+        take = self.sequence[-2]
+        plus = self.sequence[-1]
+        
         for i in range(0, steps):
             fib = take + plus
             self.sequence.append(fib)
+            self.maxSum += fib
             take = plus
             plus = fib
-        return self.sequence
 
     def __str__(self):
-        return "base: {}, add: {}, sequence: {}".format(self.base, self.add, self.sequence)
+        return "sequence: {}, maxSum: {}".format(self.sequence, self.maxSum)

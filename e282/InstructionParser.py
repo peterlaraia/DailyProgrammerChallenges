@@ -21,7 +21,7 @@ def buildInstruction(instr):
     elif base == '10':
         intVal = MathUtil.parseInt(value)
         if intVal is not None and intVal >= 0:
-            return Instruction(base, value)
+            return Instruction(base, intVal)
 
     return None
 
